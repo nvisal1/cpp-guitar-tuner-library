@@ -73,5 +73,6 @@ jobs:
 
     - name: Unit Test
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
-      run: ./tools/run_unit_tests.sh
+      run: >
+        cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target unit_test && ls
 
