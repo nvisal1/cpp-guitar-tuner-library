@@ -54,7 +54,8 @@ TEST_CASE("[apply_hanning_window] all elements are one") {
     std::array<float, TUNER_SIZE> audio_stream_buffer = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
     std::array<float, TUNER_SIZE> result = tuner::apply_hanning_window(audio_stream_buffer);
     for (size_t i = 0; i < TUNER_SIZE; i++) {
-        REQUIRE(result[i] == audio_stream_buffer[i] * (0.5f * (1.0f - cos(2.0f * static_cast<float>(M_PI) * static_cast<float>(i) / static_cast<float>(audio_stream_buffer.size())))));
+        float expected = audio_stream_buffer[i] * (0.5f * (1.0f - cos(2.0f * static_cast<float>(M_PI) * static_cast<float>(i) / static_cast<float>(audio_stream_buffer.size()))));
+        REQUIRE(std::abs(expected - result[i]) < 1e-6);
     }
 }
 
