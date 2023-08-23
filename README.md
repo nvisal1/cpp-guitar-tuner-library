@@ -1,7 +1,7 @@
 # C++ Guitar Tuner Library
 Latest: _v0.0.0_
 
-![Image](assets/cpp_tuner.png)
+<img src="./assets/cpp_tuner.png" alt="drawing" width="500"/>
 
 ## Table of Contents
 * [Summary](#Summary)
