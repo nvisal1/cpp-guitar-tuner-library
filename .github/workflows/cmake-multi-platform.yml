@@ -21,7 +21,7 @@ jobs:
       #
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
         include:
@@ -31,8 +31,18 @@ jobs:
           - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
-          - os: ubuntu-latest
-            c_compiler: cl
+          - os: macos-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+          - os: macos-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+          - os: windows-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+          - os: windows-latest
+            c_compiler: clang
+            cpp_compiler: clang++
         
 
     steps:
@@ -45,8 +55,15 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-    - name: Install required packages
+    - name: Install Dependencies (Ubuntu Linux)
       run: sudo apt-get install -y fftw3 fftw3-dev pkg-config lcov
+      if: matrix.os == 'ubuntu-latest'
+    - name: Install Dependencies (Windows)
+      run: choco install fftw3 fftw3-dev pkg-config lcov
+      if: matrix.os == 'windows-latest'
+    - name: Install Dependencies (macOS)
+      run: brew install fftw3 fftw3-dev pkg-config lcov
+      if: matrix.os == 'macos-latest'
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
