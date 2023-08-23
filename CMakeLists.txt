@@ -193,8 +193,8 @@ function (add_coverage)
     message(${CMAKE_BINARY_DIR})
     add_custom_target(coverage
             COMMAND ${LCOV} --directory . --capture --output-file coverage.info
-            COMMAND ${LCOV} --ignore-errors inconsistent,inconsistent --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp'
-            COMMAND ${GEN} --demangle-cpp --ignore-errors inconsistent,inconsistent  -o coverage coverage_filtered.info
+            COMMAND ${LCOV} --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp'
+            COMMAND ${GEN} --demangle-cpp -o coverage coverage_filtered.info
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
             )
 endfunction()
