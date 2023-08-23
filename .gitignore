@@ -1,0 +1,26 @@
+# CMake
+_deps
+CMakeFiles
+generated-includes
+CMakeCache.txt
+Makefile
+cmake-build-local/
+
+# Artifacts
+wasm_public/wasm_tuner.js
+wasm_public/wasm_tuner.wasm
+test
+libtuner.a
+unit_test
+acceptance_test
+
+# Mac
+.DS_Store
+
+# IDE
+.idea
+
+# Test Report
+result-junit.xml
+*.info
+coverage
