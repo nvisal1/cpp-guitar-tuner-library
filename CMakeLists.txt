@@ -203,7 +203,7 @@ function (add_coverage)
     if(UNIX AND NOT APPLE)
         add_custom_target(coverage
                 COMMAND ${LCOV} --directory . --capture --output-file coverage.info
-                COMMAND ${LCOV} --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp'
+                COMMAND ${LCOV} --remove coverage.info -o coverage_filtered.info --exclude '/Applications/*' --exclude '*/_deps/*' --exclude '*.hpp'
                 COMMAND ${GEN} --demangle-cpp -o coverage coverage_filtered.info
                 WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
                 )
