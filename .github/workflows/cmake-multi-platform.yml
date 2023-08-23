@@ -74,5 +74,12 @@ jobs:
     - name: Unit Test
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: >
-        cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target unit_test && ls
+        cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target unit_test \
+        && cd ${{ steps.strings.outputs.build-output-dir }} \
+        && ./unit_test \
+            --reporter JUnit::out=result-junit.xml \
+            --reporter console::out=-::colour-mode=ansi \
+            --durations yes \
+            --verbosity high \
+        && make coverage
 
