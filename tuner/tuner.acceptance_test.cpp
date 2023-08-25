@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 #include <tuner/wa_tuner.hpp>
 #include <tuner/tuner.hpp>

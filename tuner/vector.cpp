@@ -1,5 +1,6 @@
 #include <iostream>
 #include <numeric>
+#include <algorithm>
 
 #include <tuner/vector.hpp>
 

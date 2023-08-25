@@ -191,12 +191,23 @@ function (add_coverage)
     find_program(LCOV lcov REQUIRED)
 
     message(${CMAKE_BINARY_DIR})
-    add_custom_target(coverage
-            COMMAND ${LCOV} --directory . --capture --output-file coverage.info --ignore-errors inconsistent
-            COMMAND ${LCOV} --ignore-errors inconsistent,inconsistent --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp'
-            COMMAND ${GEN} --demangle-cpp --ignore-errors inconsistent,inconsistent  -o coverage coverage_filtered.info
-            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-            )
+
+    if(APPLE)
+        add_custom_target(coverage
+                COMMAND ${LCOV} --directory . --capture --output-file coverage.info --ignore-errors inconsistent
+                COMMAND ${LCOV} --ignore-errors inconsistent,inconsistent --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp'
+                COMMAND ${GEN} --demangle-cpp --ignore-errors inconsistent,inconsistent  -o coverage coverage_filtered.info
+                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                )
+    endif()
+    if(UNIX AND NOT APPLE)
+        add_custom_target(coverage
+                COMMAND ${LCOV} --directory . --capture --output-file coverage.info
+                COMMAND ${LCOV} --remove coverage.info -o coverage_filtered.info '/Applications/*' '*/_deps/*' '*.hpp' '/usr/*' '11/*'
+                COMMAND ${GEN} --demangle-cpp -o coverage coverage_filtered.info
+                WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+                )
+    endif()
 endfunction()
 
 download_dependencies()
