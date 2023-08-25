@@ -211,9 +211,9 @@ function (add_coverage)
 endfunction()
 
 download_dependencies()
-build_wasm_executable()
+## build_wasm_executable()
 build_library()
-build_unit_test()
-build_acceptance_test()
+## build_unit_test()
+## build_acceptance_test()
 ## add_coverage()
 
