@@ -215,5 +215,5 @@ build_wasm_executable()
 build_library()
 build_unit_test()
 build_acceptance_test()
-add_coverage()
+## add_coverage()
 
